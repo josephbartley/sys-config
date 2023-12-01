@@ -4,5 +4,11 @@ window:
 font:
   normal:
     family: MonoidNerdFont
+  bold:
+    family: MonoidNerdFont-Bold
+  italic:
+    family: MonoidNerdFont-Italic
+  bold_italic:
+    family: MonoidNerdFont-BoldItalic
 import:
   - ~/.config/alacritty/catppuccin/catppuccin-mocha.yml
