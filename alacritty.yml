@@ -1,0 +1,8 @@
+window:
+  decorations: none
+  startup_mode: Fullscreen
+font:
+  normal:
+    family: MonoidNerdFont
+import:
+  - ~/.config/alacritty/catppuccin/catppuccin-mocha.yml
