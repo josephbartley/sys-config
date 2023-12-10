@@ -4,6 +4,8 @@ set number
 set relativenumber
 set cursorline
 set noshowmode
+set colorcolumn=80
+set wrap!
 ]])
 
 local Plug = vim.fn['plug#']
@@ -32,6 +34,7 @@ Plug('nvim-telescope/telescope.nvim', { tag = '0.1.5' })
 Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'itchyny/lightline.vim'
 Plug 'RRethy/vim-illuminate'
+Plug 'smoka7/hop.nvim'
 vim.call('plug#end')
 
 require('ibl').setup()
@@ -145,8 +148,6 @@ cmp.setup({
   },
 })
 
-
-
 require('rust-tools').setup()
 
 vim.g.loaded_netrw = 1
@@ -158,12 +159,19 @@ require('nvim-tree').setup({
 		sorter = "case_sensitive",
 	},
 	view = {
-		width = 30,
+		width = 22,
 	},
 	renderer = {
 		group_empty = true,
 	},
 })
+
+local hop = require('hop')
+hop.setup({
+	keys = 'aoeuidhtns'
+})
+
+local directions = require('hop.hint').HintDirection
 
 require('catppuccin').setup({
 	flavour = "mocha",
@@ -189,8 +197,16 @@ function map(mode, shortcut, command)
 	vim.api.nvim_set_keymap(mode, shortcut, command, { noremap = true, silent = true })
 end
 
+function vmap(shortcut, command)
+	map('v', shortcut, command)
+end
+
 function nmap(shortcut, command)
 	map('n', shortcut, command)
+end
+
+function imap(shortcut, command)
+	map('i', shortcut, command)
 end
 
 function tmap(shortcut, command)
@@ -209,11 +225,41 @@ nmap('<A-Right>', '<C-W><Right>')
 nmap('<A-Up>', '<C-W><Up>')
 nmap('<A-Down>', '<C-W><Down>')
 
+nmap('<A-a>', '<Left>')
+nmap('<A-,>', '<Up>')
+nmap('<A-o>', '<Down>')
+nmap('<A-e>', '<Right>')
+imap('<A-a>', '<Left>')
+imap('<A-,>', '<Up>')
+imap('<A-o>', '<Down>')
+imap('<A-e>', '<Right>')
+vmap('<A-a>', '<Left>')
+vmap('<A-,>', '<Up>')
+vmap('<A-o>', '<Down>')
+vmap('<A-e>', '<Right>')
+nmap('<A-h>', '<Left>')
+nmap('<A-c>', '<Up>')
+nmap('<A-t>', '<Down>')
+nmap('<A-n>', '<Right>')
+imap('<A-h>', '<Left>')
+imap('<A-c>', '<Up>')
+imap('<A-t>', '<Down>')
+imap('<A-n>', '<Right>')
+vmap('<A-h>', '<Left>')
+vmap('<A-c>', '<Up>')
+vmap('<A-t>', '<Down>')
+vmap('<A-n>', '<Right>')
+
+nmap('h', '<Cmd>HopWord<CR>')
+imap('<C-A-h>', '<Cmd>HopWord<CR>')
+
 nmap('<C-P>', '<Cmd>Telescope find_files theme=dropdown<CR>')
 
 nmap('<C-F><C-T>', '<Cmd>FloatermNew --name=float --autoclose=2 zsh <CR>')
 nmap('t', '<Cmd>FloatermToggle float<CR>')
-tmap('<Esc>', "<C-\\><C-n>:q<CR>")
+tmap('<Esc>', '<C-\\><C-n>:q<CR>')
+
+tmap('<A-t>', '<C-\\><C-n>:q<CR>')
 
 nmap('<C-N>', '<Cmd>NvimTreeToggle<CR>')
 
@@ -224,6 +270,8 @@ nmap('<F11>', '<Cmd>call vimspector#StepOver()<CR>')
 nmap('<F12>', '<Cmd>call vimspector#StepOut()<CR>')
 nmap('<F10>', '<Cmd>call vimspector#StepInto()<CR>')
 
+vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format()]]
+
 vim.cmd([[
 let g:vimspector_sidebar_width = 85
 let g:vimspector_bottombar_height = 15
@@ -233,3 +281,4 @@ let g:vimspector_terminal_maxwidth = 70
 vim.cmd([[
 :NvimTreeToggle
 ]])
+
