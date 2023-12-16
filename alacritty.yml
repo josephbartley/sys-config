@@ -1,6 +1,8 @@
 window:
   decorations: none
   startup_mode: Fullscreen
+shell:
+  program: /bin/zsh
 font:
   normal:
     family: MonoidNerdFont
