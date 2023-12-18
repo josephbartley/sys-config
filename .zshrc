@@ -115,6 +115,7 @@ alias gopher="toolbox enter gopher"
 alias rustacean="toolbox enter rustacean"
 alias nodummy="toolbox enter nodummy"
 alias upgrade="sudo rpm-ostree upgrade && sudo flatpak upgrade -y && toolbox run --container gopher sudo dnf upgrade -y && toolbox run --container rustacean sudo dnf upgrade -y && toolbox run --container nodummy sudo dnf upgrade -y"
+alias godot="flatpak run org.godotengine.GodotSharp"
 
 export PATH=$PATH:$HOME/go/bin
 

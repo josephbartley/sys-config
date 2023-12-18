@@ -1,9 +1,11 @@
 window:
   decorations: none
-  startup_mode: Fullscreen
+  startup_mode: Maximized
+  opacity: 0.8
 shell:
   program: /bin/zsh
 font:
+  size: 30
   normal:
     family: MonoidNerdFont
   bold:

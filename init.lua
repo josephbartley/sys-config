@@ -5,6 +5,8 @@ set relativenumber
 set cursorline
 set noshowmode
 set colorcolumn=80
+set tabstop=4
+set shiftwidth=0
 set wrap!
 ]])
 
@@ -35,6 +37,7 @@ Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'itchyny/lightline.vim'
 Plug 'RRethy/vim-illuminate'
 Plug 'smoka7/hop.nvim'
+Plug 'habamax/vim-godot'
 vim.call('plug#end')
 
 require('ibl').setup()
@@ -146,6 +149,14 @@ cmp.setup({
           return item
       end,
   },
+})
+
+require('lspconfig').gdscript.setup({
+	on_attach = on_attach,
+	flags = {
+		debounce_text_changes=10,
+	}
+	
 })
 
 require('rust-tools').setup()
@@ -276,6 +287,7 @@ vim.cmd([[
 let g:vimspector_sidebar_width = 85
 let g:vimspector_bottombar_height = 15
 let g:vimspector_terminal_maxwidth = 70
+let g:godot_executable = "flatpak run org.godotengine.GodotSharp"
 ]])
 
 vim.cmd([[
